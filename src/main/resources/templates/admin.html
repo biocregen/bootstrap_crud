@@ -22,25 +22,32 @@
             <th>id</th>
             <th>Никнейм</th>
             <th>Пароль</th>
-            <th>Электронная почта</th>
+            <th>Почта</th>
             <th>Роль</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="user : ${users}">
-            <td th:text="${users.getId()}"></td>
-            <td th:text="${users.getUsername()}"></td>
-            <td th:text="${users.getPassword()}"></td>
-            <td th:text="${users.getEmail()}"></td>
-            <td th:text="${users.roleListToString()}"></td>
+        <tr th:each="user : ${admin}">
+            <td th:text="${admin.getId()}"></td>
+            <td th:text="${admin.getUsername()}"></td>
+            <td th:text="${admin.getPassword()}"></td>
+            <td th:text="${admin.getEmail()}"></td>
+            <td th:text="${admin.roleListToString()}"></td>
         </tr>
+
         </tr>
         </tbody>
     </table>
+    <p>Все пользователи</p>
+    <form action="/admin/all-users" target="_blank">
+        <button>Все пользователи</button>
+    </form>
+    <form action="/admin/add" target="_blank">
+        <button>Добавть пользователя</button></form>
     <br/>
     <form th:method="POST" th:action="@{/logout}">
         <input type="submit" value="Logout"/>
     </form>
 </div>
 </body>
-</html>`
+</html>
