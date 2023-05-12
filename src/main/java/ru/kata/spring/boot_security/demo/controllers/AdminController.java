@@ -27,45 +27,31 @@ public class AdminController {
     public String mainPage(Principal principal, Model model) {
         User admin = userService.getByUsername(principal.getName());
         model.addAttribute("admin", admin);
+        model.addAttribute("users", userService.getAllUser());
+        model.addAttribute("userRoles", roleService.getAllRoles());
+        model.addAttribute("userNew", new User());
+        model.addAttribute("rolesNew", roleService.getAllRoles());
         return "admin";
     }
-    @GetMapping("/all-users")
-    public String getAllUsers (ModelMap model) {
-        model.addAttribute("users", userService.getAllUser());
-        model.addAttribute("usersRoles", roleService.getAllRoles());
-        return "all-users";
-    }
-    @GetMapping("user/{id}")
-    public String showUser(@PathVariable("id") int id, Model model){
-        model.addAttribute("users", userService.getById(id));
-        return "/user";
-    }
-    @GetMapping("/add")
-    public String addForm(ModelMap model) {
-        model.addAttribute("user", new User());
-        model.addAttribute("roles", roleService.getAllRoles());
-        return "add";
-    }
-    @PostMapping("/add")
-    public String addSubmit(@ModelAttribute("user") User user) {
+    @PostMapping("")
+    public String addUser(@ModelAttribute("user") User user) {
         userService.addUser(user);
-        return "redirect:/admin/all-users";
-    }
-    @DeleteMapping("/delete/{id}")
-    public String deleteUser(@PathVariable("id") int id) {
-        userService.deleteUser(id);
-        return "redirect:/admin/all-users";
-    }
-    @GetMapping("/{id}/edit")
-    public String editPage(@PathVariable("id") int id, ModelMap model){
-        model.addAttribute("user", userService.getById(id));
-        model.addAttribute("role",roleService.getAllRoles());
-        return "edit";
+        return "redirect:/admin";
     }
     @PatchMapping("/{id}")
-    public String editSubmit(@ModelAttribute("user") User user) {
-        userService.updateUser(user);
-        return "redirect:/admin/all-users";
+    public String editUser(@ModelAttribute("user") User user, @PathVariable("id") int id) {
+        User userDb = userService.getById(id);
+        userDb.setUsername(user.getUsername());
+        userDb.setPassword(user.getPassword());
+        userDb.setEmail(user.getEmail());
+        userDb.setRoleList(user.getRoleList());
+        userService.updateUser(userDb);
+        return "redirect:/admin";
     }
 
+    @GetMapping("{id}/delete")
+    public String deleteUser(@PathVariable("id") int id) {
+        userService.deleteUser(id);
+        return "redirect:/admin";
+    }
 }
