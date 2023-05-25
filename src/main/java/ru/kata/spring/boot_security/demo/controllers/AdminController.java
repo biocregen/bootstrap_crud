@@ -38,14 +38,9 @@ public class AdminController {
         userService.addUser(user);
         return "redirect:/admin";
     }
-    @PatchMapping("/{id}")
-    public String editUser(@ModelAttribute("user") User user, @PathVariable("id") int id) {
-        User userDb = userService.getById(id);
-        userDb.setUsername(user.getUsername());
-        userDb.setPassword(user.getPassword());
-        userDb.setEmail(user.getEmail());
-        userDb.setRoleList(user.getRoleList());
-        userService.updateUser(userDb);
+    @PutMapping("/{id}")
+    public String editUser(@ModelAttribute("user") User user) {
+            userService.addUser(user);
         return "redirect:/admin";
     }
 

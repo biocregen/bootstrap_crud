@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <link rel="shortcut icon" href="https://images.pngnice.com/download/2114/Spring-Transparent-PNG.png"
+          type="image/png"/>
     <title>Admin panel</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
@@ -104,7 +104,7 @@
                                             <div class="modal fade" th:id="${'modalEdit'+user.id}">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
-                                                        <form id="formEdit" th:method="PATCH"
+                                                        <form id="formEdit" th:method="PUT"
                                                               action="#"
                                                               th:action="@{/admin/{id}(id=${user.id})}"
                                                               th:object="${user}">
@@ -154,7 +154,7 @@
                                                                                 <strong>Email</strong>
                                                                                 <input class="form-control"
                                                                                        th:type="email"
-                                                                                       th:name="editEmail"
+                                                                                       th:name="email"
                                                                                        id="editEmail"
                                                                                        th:value="${user.email}"
                                                                                        required>
